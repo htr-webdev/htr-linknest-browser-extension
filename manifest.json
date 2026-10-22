@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "LinkNest",
+  "version": "0.1.0",
+  "description": "A lightweight, local-first browser extension for organizing and managing links.",
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_title": "LinkNest",
+    "default_popup": "src/popup/popup.html"
+  }
+}
