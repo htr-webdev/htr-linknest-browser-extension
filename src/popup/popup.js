@@ -1,10 +1,14 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const linksArea = document.querySelector(".links-area");
   const addButtons = document.querySelectorAll(".add-button, .empty-action");
   const searchInput = document.querySelector("#search");
 
+  const STORAGE_KEY = "links";
+
   let links = [];
   let editingLinkId = null;
+  let isLoading = true;
+  let saveQueue = Promise.resolve();
 
   function createId() {
     return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -34,13 +38,53 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  async function loadLinks() {
+    try {
+      const result = await browser.storage.local.get(STORAGE_KEY);
+      const storedLinks = result[STORAGE_KEY];
+
+      links = Array.isArray(storedLinks) ? storedLinks : [];
+    } catch (error) {
+      console.error("Failed to load links:", error);
+      links = [];
+    } finally {
+      isLoading = false;
+      renderLinks();
+    }
+  }
+
+  function saveLinks() {
+    const linksToSave = links.map((link) => ({ ...link }));
+
+    saveQueue = saveQueue
+      .catch(() => {})
+      .then(() =>
+        browser.storage.local.set({
+          [STORAGE_KEY]: linksToSave,
+        }),
+      )
+      .catch((error) => {
+        console.error("Failed to save links:", error);
+      });
+
+    return saveQueue;
+  }
+
   function renderLinks() {
+    linksArea.replaceChildren();
+
+    if (isLoading) {
+      const message = document.createElement("p");
+      message.textContent = "Loading links...";
+      linksArea.append(message);
+      return;
+    }
+
     const query = searchInput.value.trim().toLowerCase();
+
     const filteredLinks = links.filter((link) =>
       `${link.title} ${link.url}`.toLowerCase().includes(query),
     );
-
-    linksArea.replaceChildren();
 
     if (filteredLinks.length === 0) {
       const heading = document.createElement("h3");
@@ -104,6 +148,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function addLink() {
+    if (isLoading) {
+      return;
+    }
+
     const titleInput = document.createElement("input");
     titleInput.type = "text";
     titleInput.placeholder = "Link title";
@@ -125,6 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cancelButton = document.createElement("button");
     cancelButton.type = "button";
     cancelButton.textContent = "Cancel";
+
     cancelButton.addEventListener("click", () => {
       editingLinkId = null;
       renderLinks();
@@ -133,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     form.append(titleInput, urlInput, saveButton, cancelButton);
 
     const existingForm = linksArea.querySelector(".link-form");
+
     if (existingForm) {
       existingForm.remove();
     }
@@ -141,14 +191,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (editingLinkId) {
       const currentLink = links.find((link) => link.id === editingLinkId);
+
       if (currentLink) {
         titleInput.value = currentLink.title;
         urlInput.value = currentLink.url;
       }
     }
 
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
+
+      if (saveButton.disabled) {
+        return;
+      }
 
       const title = titleInput.value.trim();
       const url = normalizeUrl(urlInput.value);
@@ -167,16 +222,25 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      saveButton.disabled = true;
+
       if (editingLinkId) {
         links = links.map((link) =>
           link.id === editingLinkId ? { ...link, title, url } : link,
         );
+
         editingLinkId = null;
       } else {
-        links.push({ id: createId(), title, url });
+        links.push({
+          id: createId(),
+          title,
+          url,
+        });
       }
 
       renderLinks();
+
+      await saveLinks();
     });
 
     titleInput.focus();
@@ -187,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
     addLink();
   }
 
-  function deleteLink(id) {
+  async function deleteLink(id) {
     const confirmed = confirm("Are you sure you want to delete this link?");
 
     if (!confirmed) {
@@ -195,7 +259,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     links = links.filter((link) => link.id !== id);
+
     renderLinks();
+
+    await saveLinks();
   }
 
   addButtons.forEach((button) => {
@@ -204,5 +271,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   searchInput.addEventListener("input", renderLinks);
 
-  renderLinks();
+  await loadLinks();
 });
