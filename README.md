@@ -2,98 +2,56 @@
 
 **A simple, organized home for your links.**
 
-LinkNest is a browser extension designed to help users save, organize, and quickly access their favorite links without cluttering their bookmarks.
+**Version:** 0.1.0  
+**Status:** In Development
 
-The goal is to make link management simple, fast, and accessible directly from the browser.
+LinkNest is a browser extension for saving, organizing, and quickly accessing links.
 
-> **Status:** In Development
+## Features
 
-## ✨ Planned Features
+Planned for the initial release:
 
-The initial version of LinkNest (MVP) is planned to include:
+- Organize links into collections and folders.
+- Add, edit, and delete links.
+- Add notes to links.
+- Search saved links.
+- Open all links in a folder.
+- Customize collection and folder colors.
+- Save changes automatically.
+- Store data locally without an account.
 
-- **Collections:** Organize links into separate collections.
-- **Folders:** Group related links within collections.
-- **Link Management:** Add, edit, and delete saved links.
-- **Link Notes:** Attach notes to individual links.
-- **Quick Access:** Open the extension popup to access saved links.
-- **Open All Links:** Open all links inside a folder with one action.
-- **Search:** Find saved links quickly.
-- **Customization:** Customize collection and folder colors.
-- **Automatic Saving:** Save changes without requiring a separate save action.
-- **Local Storage:** Keep saved data in the browser without requiring an account.
-
-## 🎯 Project Goals
-
-LinkNest aims to provide:
-
-- A clean and intuitive user interface.
-- Fast access to frequently used links.
-- A simple way to organize large numbers of links.
-- A local-first experience with no mandatory account.
-- A shared codebase where practical for supporting multiple browsers.
-
-## 🌐 Browser Support
-
-The initial development targets:
+## Browser Support
 
 - Google Chrome
 - Mozilla Firefox
 
-Cross-browser compatibility will be evaluated during development.
+Initial loading tests have passed in both browsers.
 
-## 🧩 Planned Interface
+## Development
 
-### Extension Popup
+LinkNest is being developed using standard web technologies and the browser extension platform, without a frontend framework.
 
-A compact interface for quickly accessing collections, folders, and saved links without leaving the current page.
+### Load in Chrome
 
-### Management Page
+1. Open `chrome://extensions/`.
+2. Enable **Developer mode**.
+3. Click **Load unpacked**.
+4. Select the project folder containing `manifest.json`.
 
-A dedicated page for managing links, organizing collections and folders, and configuring available customization options.
+### Load in Firefox
 
-## 🔒 Privacy and Data Storage
+1. Open `about:debugging#/runtime/this-firefox`.
+2. Click **Load Temporary Add-on**.
+3. Select the project's `manifest.json` file.
 
-The MVP is planned around local browser storage.
+Click the extension icon to open the popup.
 
-- No account will be required.
-- No cloud service will be required.
-- Saved links and notes will be stored locally by the extension.
+**Current state:** The popup is a basic test page. Link management features are not implemented yet.
 
-Cloud synchronization and account-based features may be considered for future releases.
+## Privacy
 
-## 🛠️ Technology
+The planned MVP stores saved links locally in the browser. No account or cloud service is required.
 
-The final technology stack will be documented once the development environment and implementation approach have been selected.
+## License
 
-The project will prioritize maintainability, a lightweight user experience, and compatibility with the targeted browsers.
-
-## 🗺️ Roadmap
-
-- [ ] Define the MVP scope and acceptance criteria.
-- [ ] Initialize the repository and development environment.
-- [ ] Build the initial browser extension popup UI.
-- [ ] Implement basic link CRUD operations.
-- [ ] Persist links using local browser storage.
-- [ ] Prepare the first project update for LinkedIn.
-
-Additional features may be considered after the MVP is functional and tested.
-
-## 🚀 Future Possibilities
-
-Potential improvements beyond the initial version include:
-
-- Cloud synchronization across devices.
-- User accounts and backup options.
-- More advanced organization and customization.
-- Additional browser support.
-
-These features are not part of the initial MVP.
-
-## 🤝 Contributing
-
-Contributions, suggestions, and feedback are welcome. As the project evolves, contribution guidelines and development instructions will be added where needed.
-
-## 📄 License
-
-LinkNest is released under the MIT License. See the [LICENSE](LICENSE) file for details.
+Released under the [MIT License](LICENSE).
