@@ -4,9 +4,65 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>LinkNest</title>
+    <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <h1>LinkNest</h1>
-    <p>Extension loaded successfully.</p>
+    <main class="popup">
+      <header class="header">
+        <div class="brand">
+          <div class="brand-icon" aria-hidden="true">L</div>
+          <div>
+            <h1>LinkNest</h1>
+            <p>Your links, organized.</p>
+          </div>
+        </div>
+
+        <button
+          class="icon-button"
+          type="button"
+          aria-label="Settings"
+          title="Settings"
+        >
+          ⚙
+        </button>
+      </header>
+
+      <section class="content">
+        <div class="section-heading">
+          <div>
+            <h2>My Links</h2>
+            <p class="subtitle">Keep everything within reach.</p>
+          </div>
+
+          <button class="add-button" type="button">
+            <span aria-hidden="true">+</span> Add link
+          </button>
+        </div>
+
+        <label class="search-box">
+          <span aria-hidden="true">⌕</span>
+          <input
+            type="search"
+            id="search"
+            placeholder="Search your links..."
+            aria-label="Search saved links"
+          />
+        </label>
+
+        <div class="links-area">
+          <div class="empty-icon" aria-hidden="true">↗</div>
+          <h3>No links yet</h3>
+          <p>Your saved links will appear here.</p>
+          <button class="empty-action" type="button">
+            Add your first link
+          </button>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <span>LinkNest</span>
+        <span>Version 0.1.0</span>
+      </footer>
+    </main>
   </body>
 </html>
