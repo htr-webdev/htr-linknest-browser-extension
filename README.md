@@ -1,57 +1,80 @@
+
 # LinkNest
 
 **A simple, organized home for your links.**
 
-**Version:** 0.1.0  
-**Status:** In Development
+![Version](https://img.shields.io/badge/version-0.1.0-blue)
+![Status](https://img.shields.io/badge/status-in%20development-orange)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-LinkNest is a browser extension for saving, organizing, and quickly accessing links.
+LinkNest is a lightweight, local-first browser extension for saving, managing, and organizing links. It is being developed for users who want quick access to their saved links without relying on an account or cloud service.
 
-## Features
+## Current Features
 
-Planned for the initial release:
+- Add links with a title and URL.
+- Edit existing links.
+- Delete links with confirmation.
+- Validate URLs and normalize them to HTTP or HTTPS.
+- Search saved links by title or URL.
+- Automatically save links using local browser storage.
+- Restore saved links when the popup is reopened.
+
+## Planned Features
 
 - Organize links into collections and folders.
-- Add, edit, and delete links.
-- Add notes to links.
-- Search saved links.
-- Open all links in a folder.
+- Move links between folders.
+- Add notes to saved links.
 - Customize collection and folder colors.
-- Save changes automatically.
-- Store data locally without an account.
+- Open all links in a folder.
+- Provide a dedicated management page.
+- Add a settings page for extension preferences.
 
 ## Browser Support
 
 - Google Chrome
 - Mozilla Firefox
 
-Initial loading tests have passed in both browsers.
+The popup interface and current link management and storage features have been tested in both browsers.
 
-## Development
+## Technology
 
-LinkNest is being developed using standard web technologies and the browser extension platform, without a frontend framework.
+LinkNest is built with standard web technologies and browser extension APIs.
 
-### Load in Chrome
+- HTML
+- CSS
+- JavaScript
+- WebExtensions API
+- Browser local storage
 
-1. Open `chrome://extensions/`.
-2. Enable **Developer mode**.
-3. Click **Load unpacked**.
-4. Select the project folder containing `manifest.json`.
+The project does not currently use a frontend framework.
 
-### Load in Firefox
+## Installation for Development
 
-1. Open `about:debugging#/runtime/this-firefox`.
-2. Click **Load Temporary Add-on**.
-3. Select the project's `manifest.json` file.
+### Google Chrome
 
-Click the extension icon to open the popup.
+1. Clone or download this repository.
+2. Open `chrome://extensions/`.
+3. Enable **Developer mode**.
+4. Click **Load unpacked**.
+5. Select the project directory containing `manifest.json`.
 
-**Current state:** The popup is a basic test page. Link management features are not implemented yet.
+### Mozilla Firefox
+
+1. Clone or download this repository.
+2. Open `about:debugging#/runtime/this-firefox`.
+3. Click **Load Temporary Add-on**.
+4. Select the project's `manifest.json` file.
+
+Click the LinkNest extension icon to open the popup.
+
+## Project Status
+
+LinkNest is under active development. The current implementation supports basic link management and local persistence. Folder organization, notes, customization, and the dedicated management interface are planned for upcoming development stages.
 
 ## Privacy
 
-The planned MVP stores saved links locally in the browser. No account or cloud service is required.
+LinkNest is designed around local-first storage. Saved links are stored in the browser's local storage, and the current implementation does not require an account or cloud service.
 
 ## License
 
-Released under the [MIT License](LICENSE).
+This project is released under the [MIT License](LICENSE).
